@@ -4,10 +4,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-from ActorNetwork import ActorNetwork
-from CriticNetwork import CriticNetwork
-from OUActionNoise import OUActionNoise
-from ReplayBuffer import ReplayBuffer
+from .ActorNetwork import ActorNetwork
+from .CriticNetwork import CriticNetwork
+from .OUActionNoise import OUActionNoise
+from .ReplayBuffer import ReplayBuffer
 
 
 class Agent:

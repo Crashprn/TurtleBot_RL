@@ -1,8 +1,8 @@
 import numpy as np
 import torch as T
 
-from Agent import Agent
-from Simulation import Simulation
+from TurtleBot_RL import Agent
+from TurtleBot_RL import Simulation
 
 def main():
     print(__file__ + " start!!")

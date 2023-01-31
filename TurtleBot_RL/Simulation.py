@@ -3,7 +3,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-from .TurtleBot_RL.AStarPlanner import AStarPlanner
+from .AStarPlanner import AStarPlanner
 
 class Simulation:
     def __init__(self, robot_radius, grid_size, obstacle_count):
