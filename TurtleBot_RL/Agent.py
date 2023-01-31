@@ -3,11 +3,13 @@ import torch as T
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import pkg_resources
 
 from .ActorNetwork import ActorNetwork
 from .CriticNetwork import CriticNetwork
 from .OUActionNoise import OUActionNoise
 from .ReplayBuffer import ReplayBuffer
+
 
 
 class Agent:
@@ -32,16 +34,32 @@ class Agent:
         self.batch_size = batch_size
         self.alpha = alpha
         self.beta = beta
-
+        self.models = pkg_resources.resource_filename(__name__, "Models/Trained")
+        print(self.models)
         self.memory = ReplayBuffer(max_size, input_dims, n_actions)
 
         self.noise = OUActionNoise(mu=np.zeros(n_actions))
 
         self.actor = ActorNetwork(
-            alpha, input_dims, fc1_dims, fc2_dims, fc3_dims, n_actions=n_actions, action_range=action_range, name="actor_" + run_name
+            alpha,
+            input_dims,
+            fc1_dims,
+            fc2_dims,
+            fc3_dims,
+            n_actions=n_actions,
+            chkpt_dir=self.models,
+            action_range=action_range,
+            name="actor_" + run_name
         )
         self.critic = CriticNetwork(
-            beta, input_dims, fc1_dims, fc2_dims, fc3_dims, n_actions=n_actions, name="critic_" + run_name
+            beta,
+            input_dims,
+            fc1_dims,
+            fc2_dims,
+            fc3_dims,
+            n_actions=n_actions,
+            chkpt_dir=self.models,
+            name="critic_" + run_name
         )
 
         self.target_actor = ActorNetwork(
@@ -52,6 +70,7 @@ class Agent:
             fc3_dims,
             n_actions=n_actions,
             action_range=action_range,
+            chkpt_dir=self.models,
             name="target_actor_" + run_name,
         )
 
@@ -62,6 +81,7 @@ class Agent:
             fc2_dims,
             fc3_dims,
             n_actions=n_actions,
+            chkpt_dir=self.models,
             name="target_critic_" + run_name,
         )
 
